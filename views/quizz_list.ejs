@@ -1,0 +1,22 @@
+<h1>Quizz List</h1>
+
+<% for (var i = 0; i < allQuizz.length; i++) { %>
+
+<% var quizz = allQuizz[i] %>
+<h3><%= quizz.title %> (<%= quizz.url_id %>)</h3>
+<a href="/quizz/delete/<%= quizz._id %>">
+  <span style="color : red;">X</span>
+</a>
+<br/>
+<% if (typeof(quizz.choice) != 'undefined') { %>
+  
+  <% for (var j = 0; j < quizz.choice.length; j++) { %>
+  <% var cmt = quizz.choice[j] %>
+  <%= j + '# ' + cmt.content + ' - Votes : ' + cmt.vote %>
+  <br/>
+<% } %>
+
+<% } %>
+
+<br/>
+<% } %>
