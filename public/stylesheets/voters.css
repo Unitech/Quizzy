@@ -1,0 +1,47 @@
+
+// Permits to change CSS attributes if mobile browser
+@media all and (orientation: portrait) {  
+    body { 
+	background-color : #fff;
+    }  
+    div { }  
+} 
+
+// target small screens (mobile devices or small desktop windows)  
+@media only screen and (max-width: 480px) {  
+  /* CSS goes here */  
+}  
+  
+/* high resolution screens */  
+@media (-webkit-min-device-pixel-ratio: 2),  
+             (min--moz-device-pixel-ratio: 2),  
+             (min-resolution: 300dpi) {  
+  header { background-image: url(header-highres.png); }  
+}  
+  
+/* low resolution screens */  
+@media (-webkit-max-device-pixel-ratio: 1.5),  
+             (max--moz-device-pixel-ratio: 1.5),  
+             (max-resolution: 299dpi) {  
+  header { background-image: url(header-lowres.png); }  
+}  
+
+
+
+
+
+h1 {
+    margin-top : 40px;
+    text-align : center;
+}
+
+#choices-display {
+    text-align : center;
+}
+
+input[type=button] {
+    color : red;
+    width : 300px;
+    height : 60px;
+    margin-bottom : 10px;
+}

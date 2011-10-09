@@ -11,7 +11,8 @@ var app = module.exports = express.createServer();
 
 require('./configuration.js')(app);
 
-var utils = new (require('./utils.js').Utils)();
+var utils = require('./utils.js');
+var filters = require('./filters.js');
 
 // Routes
 app.get('/', function(req, res){
@@ -37,23 +38,7 @@ app.get('/quizz/new', function(req, res) {
     res.render('quizz_new');
 });
 
-function before_filter_reformat(req, res, next) {
-    var choices = req.param('choice');
-    var reformated = [];
-    
-    if (utils.isArray(choices) != true) {
-	var tmp = choices;
-	choices = [];
-	choices[0] = tmp;
-    }
-    choices.forEach(function(val, i, array) {
-	reformated[i] = {content : val, vote : 0};
-    });
-    req.params.choice = reformated;
-    next();
-}
-
-app.post('/quizz/new', before_filter_reformat, function(req, res) {
+app.post('/quizz/new', filters.beforeFilterReformat, function(req, res) {
     quizzProvider.save({
 	title : req.param('title'),
 	body : req.param('body'),
@@ -64,10 +49,32 @@ app.post('/quizz/new', before_filter_reformat, function(req, res) {
     });
 });
 
-// app.get('/:quizz_id', function(req, res) {
-//     console.log(req.params.quizz_name);
-//     res.render(
-// });
+app.get('/view/:quizz_id', function(req, res) {
+    quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
+	res.render('view_result_quizz', {
+	    quizz_inspect : utils.node.inspect(quizz),
+	    quizz : quizz
+	});
+    });
+});
+
+app.get('/:quizz_id', function(req, res) {
+	quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
+	    // No difference between real screen and mobile phone ATM (work good atm)
+	    if (utils.isMobile(req) == true) {
+		res.render('show_quizz', {
+		    quizz : quizz,
+		    layout : false
+		});
+	    }
+	    else {
+		res.render('show_quizz', {
+		    quizz : quizz,
+		    layout : false
+		});
+	    }
+	});
+});
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

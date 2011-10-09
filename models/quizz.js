@@ -16,6 +16,14 @@ QuizzProvider.prototype.getCollection = function(callback) {
     });
 };
 
+QuizzProvider.prototype.find = function(data, callback) {
+    this.getCollection(function(err, quizz) {
+	quizz.find(data).toArray(function(err, res) {
+	    callback(null, res[0]);
+	});
+    });
+};
+
 QuizzProvider.prototype.findAll = function(callback) {
     this.getCollection(function(error, quizz_collection) {
 	if( error ) callback(error)

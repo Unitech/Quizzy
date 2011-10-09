@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Voters view</title>
+    <link rel="stylesheet" href="/stylesheets/voters.css" />
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <h1><%= quizz.title %> quizz</h1>
+    <!-- Turn off autocorrect, autocomplete, and autocapitalize -->
+    <!-- <input autocorrect="off" autocomplete="off" autocapitalize="off"> -->
+    <input type="hidden" id="quizz_id" value="<%= quizz._id %>"/>
+    
+    <% choices = quizz.choice; %>
+    <div id="choices-display">
+    <% for (var i = 0; i < choices.length; i++) { %>
+      <input type="button" value="<%= choices[i].content %>" id="<%= choices[i].id %>"/>
+      <br/>
+    <% } %>
+   </div>
+
+<div id="mobile-full-screen">
+</div>
+
+<script src="/javascripts/jquery-1.6.4.min.js"></script>
+<script src="/javascripts/voters.js"></script>
+  </body>
+</html>

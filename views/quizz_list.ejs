@@ -3,7 +3,13 @@
 <% for (var i = 0; i < allQuizz.length; i++) { %>
 
 <% var quizz = allQuizz[i] %>
-<h3><%= quizz.title %> (<%= quizz.url_id %>)</h3>
+<h3>
+<a href="/<%= quizz.url_id %>">
+<%= quizz.title %> (<%= quizz.url_id %>)
+</a>
+</h3>
+
+
 <a href="/quizz/delete/<%= quizz._id %>">
   <span style="color : red;">X</span>
 </a>
