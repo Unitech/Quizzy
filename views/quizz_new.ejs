@@ -1,19 +1,35 @@
-
-<form method="post">
-  <label for="title">Titre</label>
-  <input type="text" id="title" name="title"/>
-  <br/>
-  <label for="body">Body</label>
-  <input type="text" id="body" name="body"/>
-  <br/>
-  <div id="choices">
-    <label for="body">Choix</label>
-    <input type="text" id="ch" name="choice"/>
-    <br/>
+<div id="new">
+  <div id="min_descr">
+    Just fill this short form
   </div>
-  <input type="button" value="add" id="add-choice"/>
-
-  <input type="submit" value="New Quizz"/>
-</form>
+  <form method="post" class="simple_form">
+    <div id="form-part">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title"/>
+      <br/>
+      <!-- <label for="id_prot">Id (Mini Admin dashboard)</label> -->
+      <!-- <input type="text" id="id_prot" name="id_prot"/> -->
+      <!-- <br/> -->
+      <label for="body">Description</label>
+      <textarea id="body" name="body" rows="4"></textarea>
+      <br/>
+      <div id="choice-section">
+	<div id="add-choice">
+	  <img src="/images/add_button.png" alt="add-button" />
+	  <span id="add-details">
+	    Add choice fields
+	  </span>
+	</div>
+	<!-- <input type="button" value="add" id="add-choice"/> -->
+	<div id="choices">
+	  <label for="body">Choice n°1</label>
+	  <input type="text" id="ch" name="choice"/>
+	  <br/>
+	</div>
+      </div>
+    </div>
+    <input type="submit" value="Create your Quizzy"/>
+  </form>
+</div>
 
 <script src="/javascripts/new.js"></script>

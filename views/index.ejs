@@ -1,7 +1,59 @@
 <div id="home">
-  <h2>Create you new quizzy !</h2>
-  <form url="/new" type="post">
-    <input type="text" id="quizz_name" name="quizz_name"/>
-    <input type="submit" value="Create !"/>
-  </form>
+  <span id="short_descr">
+    Smartphones for voting <!-- Fast and easy surveys -->
+    <span id="min_descr">
+      Create a Quizzy and share it
+    </span>
+  </span>
+  
+  <div id="step">
+    <div class="bb-step">
+      <div class="big-bullet">
+	<span class="bb-number">
+	  1
+	</span>
+      </div>
+      <div class="bb-descr">
+	Fill a form
+      </div>
+    </div>
+    
+    <div class="bb-step">
+      <div class="big-bullet">
+	<span class="bb-number">
+	  2
+	</span>
+      </div>
+      <div class="bb-descr">
+	Share the url
+      </div>
+    </div>
+    
+    <div class="bb-step">
+      <div class="big-bullet">
+	<span class="bb-number">
+	  3
+	</span>
+      </div>
+      <div class="bb-descr">
+	Make stats
+      </div>
+    </div>
+    
+  </div>
+  <input type="button" id="new-quizz" value="Create a quizz"/>
+  <span id="examples">
+    <a href="/">
+      View examples
+    </a>
+  </span>
 </div>
+
+
+<script>
+$().ready(function() {
+$('#new-quizz').click(function() {
+window.location = '/quizz/new';
+});
+});
+</script>

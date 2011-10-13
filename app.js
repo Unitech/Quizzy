@@ -16,7 +16,9 @@ var filters = require('./filters.js');
 
 // Routes
 app.get('/', function(req, res){
-    res.render('index');
+    res.render('index', {
+	title : 'Easy quizzing'
+    });
 });
 
 app.get('/quizz/delete/:id', function(req, res) {
@@ -29,13 +31,15 @@ app.get('/quizz', function(req, res) {
     quizzProvider.findAll(function(err, quizz) {
     	res.render('quizz_list', {
     	    allQuizz : quizz,
-    	    title : 'Ok'
+    	    title : 'List'
     	});
     });
 });
 
 app.get('/quizz/new', function(req, res) {
-    res.render('quizz_new');
+    res.render('quizz_new', {
+	title : 'New'
+    });
 });
 
 app.post('/quizz/new', filters.beforeFilterReformat, function(req, res) {
@@ -44,36 +48,30 @@ app.post('/quizz/new', filters.beforeFilterReformat, function(req, res) {
 	body : req.param('body'),
 	choice : req.param('choice'),
 	url_id : utils.generateId(5)
+	//id_prot : req.param('id_prot')
     }, function(err, quizz) {
 	res.redirect('/quizz');
     });
 });
 
-app.get('/view/:quizz_id', function(req, res) {
+app.get('/v/:quizz_id', function(req, res) {
     quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
 	res.render('view_result_quizz', {
-	    quizz_inspect : utils.node.inspect(quizz),
-	    quizz : quizz
+	    quizz : quizz,
+	    title : 'View results for ' + quizz.title
 	});
     });
 });
 
-app.get('/:quizz_id', function(req, res) {
-	quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
-	    // No difference between real screen and mobile phone ATM (work good atm)
-	    if (utils.isMobile(req) == true) {
-		res.render('show_quizz', {
-		    quizz : quizz,
-		    layout : false
-		});
-	    }
-	    else {
-		res.render('show_quizz', {
-		    quizz : quizz,
-		    layout : false
-		});
-	    }
+app.get('/c/:quizz_id', function(req, res) {
+    quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
+	// No difference between real screen and mobile phone ATM (work good atm)
+	// if (utils.isMobile(req) == true) {
+	res.render('show_quizz', {
+	    quizz : quizz,
+	    layout : false
 	});
+    });
 });
 
 app.listen(3000);

@@ -1,48 +1,214 @@
-body {
 
-  background-color : #CCC;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+#container {
+    width : 600px;
+    margin : 0 auto;
 }
-
-a {
-    color : black;
-    font-weight : bold;
-    text-decoration : none;
-}
-
-a:hover {
-    background-color : black;
-    color : white;
-}
-
 
 #header {
+    width : 400px;
 }
 
-#header a {
-    text-align : center;
+#header a, a:visited {
+    font-weight : bold;
+    text-decoration : none;
+    color : #06D;
+}
+
+#header h1 {
+    margin-top : 20px;
+    margin-bottom : 15px;
+}
+
+#header a:hover {
+    color : #6F6F6F;
+}
+
+/****** HOME ******/
+#main input[type=button], input[type=submit] {
+    padding : 10px;
+    background-color : #06D;
+    border : 1px solid #CCC;
+    color : white;
+    display : block;
+    margin-top : 10px;
+    font-weight : bold;
+}
+
+#main input[type=button]:hover, input[type=submit]:hover {
+    background-color : #CCC;
+}
+
+
+#home #short_descr {
+    font-size : 22px;
+    display : block;
+    margin-bottom : 15px;
+}
+
+#home #examples a{
+    font-size : 12px;
     text-decoration : none;
 }
 
+#home #min_descr {
+    margin-top : 5px;
+    font-size : 15px;
+    display : block;
+    color : #6F6F6F;
+}
 
+#home #step {
+    margin-bottom : 25px;
+}
+
+.bb-step {
+    position : relative;
+    margin : 10px 10px;
+}
+
+.bb-step .bb-descr {
+    position : absolute;
+    font-size : 15px;
+    top : 12px;
+    left : 56px;
+}
+
+.bb-step .big-bullet {
+    background-color : #06D;
+    width : 40px;
+    height : 40px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -khtml-border-radius: 25px;
+    border-radius: 25px;
+}
+
+.bb-step .big-bullet:hover {
+    //background-color : #CCC;
+}
+
+.big-bullet .bb-number {
+    position : absolute;
+    top : 12px;
+    left : 16px;
+    color : white;
+    font-size : 16px;
+    font-weight : bold;
+    
+}
+
+/****** ! HOME ******/
+
+
+/****** NEW ******/
+#new {
+}
+
+#new #min_descr{
+    margin : 13px  0px;
+    font-size : 17px;
+    display : block;
+    color : #6F6F6F;
+}
+
+#new #add-choice {
+    cursor : pointer;
+    position : relative;
+    margin-bottom : 10px;
+}
+
+#new #choices {
+    margin-top : 10px;
+}
+
+#new #add-details {
+    position : absolute;
+    top : 10px;
+    display : inline-block;
+}
+
+#new #choice-section {
+    border-top : 1px dotted #CCC;
+    margin-top : 15px;
+    padding-top : 5px;
+    width : 310px;
+}
+
+/****** ! NEW ******/
+
+
+
+
+/****** MENU *****/
 #menu {
-    border-top : 1px solid #AAA;
-    border-bottom : 1px solid #AAA;
+    display : inline;
+}
+
+#menu a{
+    text-decoration : none;
+    color :#06D;
+}
+
+#menu span {
+    color : black;
 }
 
 #menu ul {
     padding : 0 0 ;
     list-style-type : none;
-    text-align : center;
 }
 
 #menu li {
-    padding : 3px;
+
     display : inline;
-    margin-left : 20px;
 }
 
 #menu .selected {
     background-color : white;
     
 }
+
+/****** ! MENU *****/
+
+/****** UTILS ******/
+
+
+
+/****** ! UTILS ******/
+
+#author {
+    display : inline;
+    font-size : 10px;
+}
+
+#main {
+    min-height : 300px;
+}
+
+#footer {
+    display : inline;
+    font-size : 11px;
+}
+
+
+/***** INPUT *****/
+
+label {
+    display : block;
+    margin-bottom : 3px;
+}
+
+input[type=text], textarea {
+    width : 21em;
+    padding : 5px;
+    font-weight : bold;
+    font-size : 110%;
+    border : 1px solid #D8DEE2;
+    margin-bottom : 5px;
+}
+
+input:-webkit-autofill {
+    background-color: #FAFFBD;
+    background-image: none;
+}
+

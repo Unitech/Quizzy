@@ -28,10 +28,17 @@
 
 
 
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body { margin: 0; font-size: 13px; line-height: 1.231; }
+
+body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+
 
 
 h1 {
-    margin-top : 40px;
+    margin-top : 10px;
+    margin-botto : 10px;
     text-align : center;
 }
 
@@ -40,8 +47,18 @@ h1 {
 }
 
 input[type=button] {
-    color : red;
+    background-color : #06D;
+    border : 1px solid #CCC;
+    color : white;
+
+
+    font-weight : bold;
+
     width : 300px;
     height : 60px;
     margin-bottom : 10px;
+}
+
+input[type=button]:hover {
+    background-color : #CCC;
 }

@@ -1,50 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title>Quizzy</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- partial('partials/head') %>
+    <link rel="stylesheet" href="/stylesheets/html5boilerplate.css">
+    <link rel="stylesheet" href="/stylesheets/960_12_col.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
     <script src="/javascripts/jquery-1.6.4.min.js"></script>
     <script src="/javascripts/main.js"></script>
   </head>
   <body>
-    <div id="container">
 
+    <div id="container">
+      
       <div id="header">
 	<a href="/">
-	  <h1>Welcome to Quizzy !</h1>
+	  <h1>Quizzy <img style="display : inline;" src="/images/smartphone.png" alt="Quizzy Smartphone"/></h1>
+
 	</a>
       </div>
-
-      <div id="menu">
-	<ul>
-	  <li>
-	    <a href="/">
-	      Home
-	    </a>
-	  </li>
-	  <!-- <li> -->
-	  <!--   <a href="/myQuizz"> -->
-	  <!--     My Quizzs -->
-	  <!--   </a> -->
-	  <!-- </li> -->
-	  <li>
-	    <a href="/quizz">
-	      List Quizz
-	    </a>
-	  </li>
-	  <li>
-	    <a href="/quizz/new">
-	      New Quizz
-	    </a>
-	  </li>
-	</ul>
-      </div>
-
+      
+      
       <div id="main">
 	<%- body %>
       </div>
+      
       <div id="footer">
+	<%- partial('partials/menu') %>
       </div>
+      
     </div>
+    
   </body>
 </html>
