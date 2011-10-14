@@ -57,8 +57,16 @@ input[type=button] {
     width : 300px;
     height : 60px;
     margin-bottom : 10px;
+    -moz-border-radius: 35px;
+    -webkit-border-radius: 35px;
+    -khtml-border-radius: 35px;
+    border-radius: 35px;
 }
 
-input[type=button]:hover {
-    background-color : #CCC;
+/* input[type=button]:hover { */
+/*     background-color : #CCC; */
+/* } */
+
+.setVoted {
+    background-color : #CCC !important;
 }

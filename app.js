@@ -51,14 +51,22 @@ app.post('/quizz/new', filters.beforeFilterReformat, function(req, res) {
 	//id_prot : req.param('id_prot')
     }, function(err, quizz) {
 	// Success
-	console.log('LOL = ' + quizz.url_id);
-	res.redirect('/v/' + quizz.url_id);
+	res.redirect('/a/' + quizz.url_id);
     });
 });
 
-app.get('/v/:quizz_id', function(req, res) {
+app.get('/a/:quizz_id', function(req, res) {
     quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
-	res.render('view_result_quizz', {
+	res.render('quizz_views/admin_quizz', {
+	    quizz : quizz,
+	    title : 'View results for ' + quizz.title
+	});
+    });
+});
+
+app.get('/r/:quizz_id', function(req, res) {
+    quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
+	res.render('quizz_views/result_quizz', {
 	    quizz : quizz,
 	    title : 'View results for ' + quizz.title
 	});
@@ -67,9 +75,7 @@ app.get('/v/:quizz_id', function(req, res) {
 
 app.get('/c/:quizz_id', function(req, res) {
     quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
-	// No difference between real screen and mobile phone ATM (work good atm)
-	// if (utils.isMobile(req) == true) {
-	res.render('show_quizz', {
+	res.render('quizz_views/client_quizz', {
 	    quizz : quizz,
 	    layout : false
 	});
@@ -77,14 +83,10 @@ app.get('/c/:quizz_id', function(req, res) {
 });
 
 /***** Public part *****/
-
-
 app.post('/ajx/quiz', function(req, res) {
-    quizzProvider.updateWithId(req.param('quizz_id'), req.param('choice_id'), function(err, quizz) {
-	
+    quizzProvider.updateWithId(req.param('quizz_id'), req.param('choice_id'), function(err, quizz) {	
     	res.send({'success':true});
     });
-    //console.log(utils.node.inspect(req.param('quizz_id')));
 });
 
 app.listen(3000);

@@ -71,6 +71,7 @@ input:-webkit-autofill {
     #examples a{
 	font-size : 12px;
 	text-decoration : none;
+	color : @color-blue;
     }
     
     #min_descr {
@@ -87,10 +88,96 @@ input:-webkit-autofill {
 
 /****** ! HOME ******/
 
+
 /**** "Admin part" ****/
 
+#admin {
+    #quizz-title {
+	color : #6F6F6F;
+	font-size : 17px;
+    }
+    a, a:visited, a:hover {
+	color : @color-blue;
+	text-decoration : none;
+    }
+    table {
+	width : 400px;
+    }
+    td:first-child {
+	display : block;
+	text-align : center;
+	margin-right : 20px;
+	padding : 2px 8px;
+	background-color : @color-blue;
+	margin-bottom : 10px;
+	color : white;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-khtml-border-radius: 25px;
+	border-radius: 25px;
+	font-weight : bold;
+    }
+    td:last-child {
+	font-size : 15px;
+    }
+}
 
+/****** RESULT *****/
 
+#result {
+    table {
+    }
+    tr {
+    }
+    td {
+	&:first-child {
+	    width : 300px;
+	}
+	&:last-child {
+	    background-color : @color-blue;
+	    font-size : 15px;
+	    font-weight : bold;	
+	}    	
+    }
+}
+
+#answers {
+	margin-top : 30px;
+    #ans {
+	position : relative;
+	#ans-descr {
+	    position : absolute;
+	    left : 55px;
+	    top : 9px;
+	    font-size : 15px;
+	    display : inline-block;
+	    width : 200px;
+	    text-align : left;
+	    padding-right : 20px;
+	}
+	#ans-vote {
+	     .big-bullet {
+		 opacity : 1;
+		 background-color : @color-blue;
+		 width : 40px;
+		 height : 40px;
+		 -moz-border-radius: 25px;
+		 -webkit-border-radius: 25px;
+		 -khtml-border-radius: 25px;
+		 border-radius: 25px;
+		 .bb-number {
+		     position : absolute;
+		     top : 9px;
+		     left : 16px;
+		     color : white;
+		     font-size : 16px;
+		     font-weight : bold;	    
+		 }	
+	     }
+	     display : inline-block;
+	}
+    }
+}
 
 /****** NEW ******/
 #new {    
@@ -99,16 +186,17 @@ input:-webkit-autofill {
 	position : relative;
 	margin-bottom : 10px;
     }
+
+    #add-details {
+	position : absolute;
+	top : 7px;
+	display : inline-block;
+    }
     
     #choices {
 	margin-top : 10px;
     }
     
-    #add-details {
-	position : absolute;
-	top : 10px;
-	display : inline-block;
-    }
     
     #choice-section {
 	border-top : 1px dotted #CCC;
@@ -150,6 +238,14 @@ input:-webkit-autofill {
 
 /****** ! MENU *****/
 
+/***** Admin page ******/
+
+#admin {
+    #desc {
+	font-size : 15px;
+    }
+}
+
 /****** UTILS ******/
 
 .bb-step {
@@ -162,6 +258,7 @@ input:-webkit-autofill {
 	left : 56px;
     }
     .big-bullet {
+	opacity : 0.2;
 	background-color : @color-blue;
 	width : 40px;
 	height : 40px;
@@ -171,7 +268,7 @@ input:-webkit-autofill {
 	border-radius: 25px;
 	.bb-number {
 	    position : absolute;
-	    top : 10px;
+	    top : 9px;
 	    left : 16px;
 	    color : white;
 	    font-size : 16px;

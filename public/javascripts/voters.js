@@ -1,5 +1,40 @@
 
+function gup(name)
+{
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+	return undefined;
+  else
+      return results[1];
+}
+
+function setVotedAndDisable(votedChoice) {
+    $('#' + votedChoice).addClass("setVoted");
+    $('.choice').each(function() {
+	$(this).unbind('click');
+    });
+}
+
 $().ready(function() {
+    var cookie_id = 'cookie-' + $('#url_id').val();
+
+    if (gup('cookie')) {
+	$.cookie(cookie_id, null);
+    }
+
+    var hasVoted = $.cookie(cookie_id)
+
+    if (hasVoted != null) {
+	setVotedAndDisable(hasVoted);
+    }
+    else {
+	// Already voted
+    }
+
+
     if (isMobile() == true) {
 	var br = '<br />';
 	var datout = '';
@@ -12,23 +47,33 @@ $().ready(function() {
     else {
 	
     }
-
-    $('.choice').each(function() {
-	var self = $(this);
-	$(this).click(function() {
-	    $.ajax({
-		type : "POST",
-		url : "/ajx/quiz",
-		data : {
-		    "quizz_id" : $('#quizz_id').val(),
-		    "choice_id" : self.attr('id')
-		},
-		success : function(data) {
-		    console.log(data.success);
-		}
+    
+    // To replace by Evercookie
+    if (hasVoted == null) {
+	$('.choice').each(function() {
+	    var self = $(this);
+	    $(this).click(function() {
+		$.ajax({
+		    type : "POST",
+		    url : "/ajx/quiz",
+		    data : {
+			"quizz_id" : $('#quizz_id').val(),
+			"choice_id" : self.attr('id')
+		    },
+		    success : function(data) {
+			if (data.success == true) {
+			    setVotedAndDisable(self.attr('id'));
+			    
+			    $.cookie(cookie_id, self.attr('id'));
+			}
+			else {
+			    // err
+			}
+		    }
+		});
 	    });
 	});
-    });
+    }
 });
 
 

@@ -4,6 +4,7 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
+var url_site = 'http://localhost:3000';
 /**** Add methods to model *****/
 function Quizz(quizz) {
     if (quizz == undefined) {
@@ -11,10 +12,13 @@ function Quizz(quizz) {
 	return
     }
     quizz.getPublicUrl = function() {
-	return "http://localhost:3000/c/" + quizz.url_id;
+	return url_site + "/c/" + quizz.url_id;
     }
-    quizz.getPrivateUrl = function() {
-	return "http://localhost:3000/v/" + quizz.url_id;
+    quizz.getAdminUrl = function() {
+	return url_site + "/a/" + quizz.url_id;
+    }
+    quizz.getResultUrl = function() {
+	return url_site + "/r/" + quizz.url_id;
     }
 }
 
@@ -36,7 +40,6 @@ QuizzProvider.prototype.find = function(data, callback) {
     this.getCollection(function(err, quizz) {
 	quizz.find(data).toArray(function(err, res) {
 	    Quizz(res[0]);
-	    console.log(res[0]);
 	    callback(null, res[0]);
 	});
     });
@@ -68,25 +71,13 @@ QuizzProvider.prototype.findById = function(id, callback) {
 
 QuizzProvider.prototype.updateWithId = function(id, data_to_up, callback) {
     this.getCollection(function(error, quizz_collection) {
-
 	quizz_collection.findOne({_id: quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, res) {
-	    res.choice[parseInt(data_to_up)].vote = res.choice[parseInt(data_to_up)].vote + 1;
-	    //console.log(res);
-	    quizz_collection.insert(res, function(err, docs) {
-		console.log(docs);
-	    	callback(null, quizzs[0]);
-            }); 
-	});
-	
+	    res.choice[parseInt(data_to_up)].vote = res.choice[parseInt(data_to_up)].vote + 1;	    
 
-            
-	// quizz_collection.update({_id : quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id)},
-	// 			{$inc : {  choice[parseInt(data_to_up)].vote : 1 } }, 
-	// 			 { safe : true },
-	// 			 function(err) {
-	// 			     console.log('OKKKKKKKKKKKKKKKK ' + err);
-	// 			 });
-	    
+	    console.log(res);
+	    quizz_collection.save(res);
+	    callback(null, null);
+	});	    
     });
 };
 

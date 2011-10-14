@@ -51,6 +51,7 @@ input:-webkit-autofill {
 #home #examples a {
   font-size: 12px;
   text-decoration: none;
+  color: #0082dd;
 }
 #home #min_descr {
   margin-top: 5px;
@@ -63,19 +64,93 @@ input:-webkit-autofill {
 }
 /****** ! HOME ******/
 /**** "Admin part" ****/
+#admin #quizz-title {
+  color: #6F6F6F;
+  font-size: 17px;
+}
+#admin a, #admin a:visited, #admin a:hover {
+  color: #0082dd;
+  text-decoration: none;
+}
+#admin table {
+  width: 400px;
+}
+#admin td:first-child {
+  display: block;
+  text-align: center;
+  margin-right: 20px;
+  padding: 2px 8px;
+  background-color: #0082dd;
+  margin-bottom: 10px;
+  color: white;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -khtml-border-radius: 25px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+#admin td:last-child {
+  font-size: 15px;
+}
+/****** RESULT *****/
+#result td:first-child {
+  width: 300px;
+}
+#result td:last-child {
+  background-color: #0082dd;
+  font-size: 15px;
+  font-weight: bold;
+}
+#answers {
+  margin-top: 30px;
+}
+#answers #ans {
+  position: relative;
+}
+#answers #ans #ans-descr {
+  position: absolute;
+  left: 55px;
+  top: 9px;
+  font-size: 15px;
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+  padding-right: 20px;
+}
+#answers #ans #ans-vote {
+  display: inline-block;
+}
+#answers #ans #ans-vote .big-bullet {
+  opacity: 1;
+  background-color: #0082dd;
+  width: 40px;
+  height: 40px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -khtml-border-radius: 25px;
+  border-radius: 25px;
+}
+#answers #ans #ans-vote .big-bullet .bb-number {
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
 /****** NEW ******/
 #new #add-choice {
   cursor: pointer;
   position: relative;
   margin-bottom: 10px;
 }
-#new #choices {
-  margin-top: 10px;
-}
 #new #add-details {
   position: absolute;
-  top: 10px;
+  top: 7px;
   display: inline-block;
+}
+#new #choices {
+  margin-top: 10px;
 }
 #new #choice-section {
   border-top: 1px dotted #CCC;
@@ -106,6 +181,10 @@ input:-webkit-autofill {
   display: inline;
 }
 /****** ! MENU *****/
+/***** Admin page ******/
+#admin #desc {
+  font-size: 15px;
+}
 /****** UTILS ******/
 .bb-step {
   position: relative;
@@ -118,6 +197,7 @@ input:-webkit-autofill {
   left: 56px;
 }
 .bb-step .big-bullet {
+  opacity: 0.2;
   background-color: #0082dd;
   width: 40px;
   height: 40px;
@@ -128,7 +208,7 @@ input:-webkit-autofill {
 }
 .bb-step .big-bullet .bb-number {
   position: absolute;
-  top: 10px;
+  top: 9px;
   left: 16px;
   color: white;
   font-size: 16px;

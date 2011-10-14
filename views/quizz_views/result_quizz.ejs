@@ -1,0 +1,35 @@
+<div id="result">
+  <div id="min_descr">
+  Result for <%= quizz.title %> Quizzy
+  </div>
+  <div id="descr">
+    <% choices = quizz.choice; %>
+    <div id="answers">
+    <% for (var i = 0; i < choices.length; i++) { %>	
+
+    <div id="ans">
+    <span id="ans-descr">
+    	  <%= choices[i].content %>
+    </span>
+    <span id="ans-vote">
+    <div class="big-bullet">
+    <div class="bb-number">
+	  <%= choices[i].vote %>
+</div>	  
+	  </div>	  
+    </span>
+    </div>	      
+
+    <% } %>
+    </div>	
+
+  </div>
+  
+</div>
+
+<script src="/javascripts/plugins/jquery.qrcode.min.js"></script>
+<script>
+  $().ready(function() {
+  $('#qrcode').qrcode('<%= quizz.getPublicUrl() %>');
+  });
+</script>

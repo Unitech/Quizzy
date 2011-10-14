@@ -7,9 +7,9 @@
   </head>
   <body>
     <h1><%= quizz.title %> quizz</h1>
-    <!-- Turn off autocorrect, autocomplete, and autocapitalize -->
-    <!-- <input autocorrect="off" autocomplete="off" autocapitalize="off"> -->
+
     <input type="hidden" id="quizz_id" value="<%= quizz._id %>"/>
+    <input type="hidden" id="url_id" value="<%= quizz.url_id %>"/>
     
     <% choices = quizz.choice; %>
     <div id="choices-display">
@@ -23,6 +23,7 @@
 </div>
 
 <script src="/javascripts/jquery-1.6.4.min.js"></script>
+<script src="/javascripts/plugins/jquery.cookie.js"></script>
 <script src="/javascripts/voters.js"></script>
 </body>
 </html>

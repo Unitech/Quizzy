@@ -8,7 +8,7 @@
   
   <div id="step">
     <div class="bb-step">
-      <div class="big-bullet">
+      <div class="big-bullet ani-1">
 	<span class="bb-number">
 	  1
 	</span>
@@ -19,7 +19,7 @@
     </div>
     
     <div class="bb-step">
-      <div class="big-bullet">
+      <div class="big-bullet ani-2">
 	<span class="bb-number">
 	  2
 	</span>
@@ -30,7 +30,7 @@
     </div>
     
     <div class="bb-step">
-      <div class="big-bullet">
+      <div class="big-bullet ani-3">
 	<span class="bb-number">
 	  3
 	</span>
@@ -54,6 +54,13 @@
 $().ready(function() {
 $('#new-quizz').click(function() {
 window.location = '/quizz/new';
+});
+
+$('.ani-1').animate({'opacity' : 1 }, 1200, function() {
+$('.ani-2').animate({'opacity' : 1 }, 1200, function() {
+$('.ani-3').animate({'opacity' : 1 }, 1200, function() {
+});
+});
 });
 });
 </script>
