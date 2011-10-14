@@ -14,7 +14,7 @@
     <% choices = quizz.choice; %>
     <div id="choices-display">
       <% for (var i = 0; i < choices.length; i++) { %>
-      <input type="button" value="<%= choices[i].content %>" id="<%= choices[i].id %>"/>
+      <input type="button" value="<%= choices[i].content %>" class="choice" id="<%= choices[i].id %>"/>
       <br/>
     <% } %>
    </div>
@@ -24,5 +24,5 @@
 
 <script src="/javascripts/jquery-1.6.4.min.js"></script>
 <script src="/javascripts/voters.js"></script>
-  </body>
+</body>
 </html>

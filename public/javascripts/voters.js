@@ -12,6 +12,23 @@ $().ready(function() {
     else {
 	
     }
+
+    $('.choice').each(function() {
+	var self = $(this);
+	$(this).click(function() {
+	    $.ajax({
+		type : "POST",
+		url : "/ajx/quiz",
+		data : {
+		    "quizz_id" : $('#quizz_id').val(),
+		    "choice_id" : self.attr('id')
+		},
+		success : function(data) {
+		    console.log(data.success);
+		}
+	    });
+	});
+    });
 });
 
 

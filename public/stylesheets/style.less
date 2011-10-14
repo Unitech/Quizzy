@@ -1,0 +1,209 @@
+
+@color-blue : #0082dd;
+
+input:-webkit-autofill {
+    background-color: #FAFFBD;
+    background-image: none;
+}
+
+/********* Container ************/
+
+#container {
+    width : 600px;
+    margin : 0 auto;
+    #header {
+	
+    }
+}
+
+#min_descr{
+    margin : 13px  0px;
+    font-size : 17px;
+    display : block;
+    color : #6F6F6F;
+}
+
+/******* MAIN (MISC) **********/
+
+#main {
+    min-height : 300px;
+    input[type=button], input[type=submit] {
+	padding : 10px;
+	background-color : @color-blue;
+	border : 1px solid #CCC;
+	color : white;
+	display : block;
+	margin-top : 10px;
+	font-weight : bold;
+    }
+
+    input[type=button]:hover, input[type=submit]:hover {
+	background-color : #CCC;
+    }
+}
+
+/******* HEADER **********/
+
+#header {
+    a, a:visited {
+	font-weight : bold;
+	text-decoration : none;
+	color : @color-blue;
+    }
+    a:hover {
+	color : #6F6F6F;
+    }
+    h1 {
+	margin-top : 20px;
+	margin-bottom : 15px;
+    }
+}
+
+/****** HOME ******/
+
+#home {
+    #short_descr {
+	font-size : 22px;
+	display : block;
+	margin-bottom : 15px;
+    }
+
+    #examples a{
+	font-size : 12px;
+	text-decoration : none;
+    }
+    
+    #min_descr {
+	margin-top : 5px;
+	font-size : 15px;
+	display : block;
+	color : #6F6F6F;
+    }
+
+    #step {
+	margin-bottom : 25px;
+    }
+}
+
+/****** ! HOME ******/
+
+/**** "Admin part" ****/
+
+
+
+
+/****** NEW ******/
+#new {    
+    #add-choice {
+	cursor : pointer;
+	position : relative;
+	margin-bottom : 10px;
+    }
+    
+    #choices {
+	margin-top : 10px;
+    }
+    
+    #add-details {
+	position : absolute;
+	top : 10px;
+	display : inline-block;
+    }
+    
+    #choice-section {
+	border-top : 1px dotted #CCC;
+	margin-top : 15px;
+	padding-top : 5px;
+	width : 310px;
+    }
+}
+
+/****** ! NEW ******/
+
+
+
+
+/****** MENU *****/
+#menu {
+    display : inline;
+    a {
+	text-decoration : none;
+	color :@color-blue;
+	&:hover {
+	    //background-color : black;
+	}
+    }
+    span {
+	color : black;
+    }
+    ul {
+	padding : 0 0 ;
+	list-style-type : none;
+	li {
+	    display : inline;
+	}
+    }
+    #author {
+	display : inline;
+    }
+}
+
+/****** ! MENU *****/
+
+/****** UTILS ******/
+
+.bb-step {
+    position : relative;
+    margin : 10px 10px;
+    .bb-descr {
+	position : absolute;
+	font-size : 15px;
+	top : 9px;
+	left : 56px;
+    }
+    .big-bullet {
+	background-color : @color-blue;
+	width : 40px;
+	height : 40px;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-khtml-border-radius: 25px;
+	border-radius: 25px;
+	.bb-number {
+	    position : absolute;
+	    top : 10px;
+	    left : 16px;
+	    color : white;
+	    font-size : 16px;
+	    font-weight : bold;	    
+	}	
+    }
+}
+
+
+/****** ! UTILS ******/
+
+
+
+#footer {
+    display : inline;
+    font-size : 11px;
+}
+
+
+/***** INPUT *****/
+
+label {
+    display : block;
+    margin-bottom : 3px;
+}
+
+input[type=text], textarea {
+    width : 21em;
+    padding : 5px;
+    font-weight : bold;
+    font-size : 110%;
+    border : 1px solid #D8DEE2;
+    margin-bottom : 5px;
+}
+

@@ -50,7 +50,9 @@ app.post('/quizz/new', filters.beforeFilterReformat, function(req, res) {
 	url_id : utils.generateId(5)
 	//id_prot : req.param('id_prot')
     }, function(err, quizz) {
-	res.redirect('/quizz');
+	// Success
+	console.log('LOL = ' + quizz.url_id);
+	res.redirect('/v/' + quizz.url_id);
     });
 });
 
@@ -72,6 +74,17 @@ app.get('/c/:quizz_id', function(req, res) {
 	    layout : false
 	});
     });
+});
+
+/***** Public part *****/
+
+
+app.post('/ajx/quiz', function(req, res) {
+    quizzProvider.updateWithId(req.param('quizz_id'), {url_id : req.params('choice_id') }, function(err, quizz) {
+	
+	res.send({'success':true});
+    });
+    //console.log(utils.node.inspect(req.param('quizz_id')));
 });
 
 app.listen(3000);

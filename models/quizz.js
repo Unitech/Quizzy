@@ -4,6 +4,22 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
+/**** Add methods to model *****/
+function Quizz(quizz) {
+    if (quizz == undefined) {
+	console.log('Warning quizz undefined');
+	return
+    }
+    quizz.getPublicUrl = function() {
+	return "http://localhost:3000/c/" + quizz.url_id;
+    }
+    quizz.getPrivateUrl = function() {
+	return "http://localhost:3000/v/" + quizz.url_id;
+    }
+}
+
+
+/******* Provider *******/
 QuizzProvider = function(host, port){
     this.db = new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
     this.db.open(function(){});
@@ -19,6 +35,7 @@ QuizzProvider.prototype.getCollection = function(callback) {
 QuizzProvider.prototype.find = function(data, callback) {
     this.getCollection(function(err, quizz) {
 	quizz.find(data).toArray(function(err, res) {
+	    Quizz(res[0]);
 	    callback(null, res[0]);
 	});
     });
@@ -48,6 +65,15 @@ QuizzProvider.prototype.findById = function(id, callback) {
     });
 };
 
+QuizzProvider.prototype.updateWithId = function(id, data_to_up, callback) {
+    // this.getCollection(function(error, quizz_collection) {
+    // 	quizz_collection.update({_id : quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id),
+    // 				 {$set : data_to_up}, {safe : true}, function(err) {
+    // 				 }
+    // 				});
+    // });
+};
+
 QuizzProvider.prototype.remove = function(id, callback) {
     this.getCollection(function(error, quizz_collection) {
 	quizz_collection.remove({_id : quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(err, res) {
@@ -64,7 +90,7 @@ QuizzProvider.prototype.save = function(quizzs, callback) {
 		quizzs = [quizzs];
 
             for( var i =0;i< quizzs.length;i++ ) {
-		console.log('New quizz created = ' + quizzs[i].title);
+
 		quizz = quizzs[i];
 		quizz.created_at = new Date();
 		if( quizz.comments === undefined ) quizz.comments = [];
@@ -74,7 +100,7 @@ QuizzProvider.prototype.save = function(quizzs, callback) {
             }
 
             quizz_collection.insert(quizzs, function() {
-		callback(null, quizzs);
+		callback(null, quizzs[0]);
             });
 	}
     });
