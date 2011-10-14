@@ -36,6 +36,7 @@ QuizzProvider.prototype.find = function(data, callback) {
     this.getCollection(function(err, quizz) {
 	quizz.find(data).toArray(function(err, res) {
 	    Quizz(res[0]);
+	    console.log(res[0]);
 	    callback(null, res[0]);
 	});
     });
@@ -66,12 +67,27 @@ QuizzProvider.prototype.findById = function(id, callback) {
 };
 
 QuizzProvider.prototype.updateWithId = function(id, data_to_up, callback) {
-    // this.getCollection(function(error, quizz_collection) {
-    // 	quizz_collection.update({_id : quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id),
-    // 				 {$set : data_to_up}, {safe : true}, function(err) {
-    // 				 }
-    // 				});
-    // });
+    this.getCollection(function(error, quizz_collection) {
+
+	quizz_collection.findOne({_id: quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, res) {
+	    res.choice[parseInt(data_to_up)].vote = res.choice[parseInt(data_to_up)].vote + 1;
+	    //console.log(res);
+	    quizz_collection.insert(res, function(err, docs) {
+		console.log(docs);
+	    	callback(null, quizzs[0]);
+            }); 
+	});
+	
+
+            
+	// quizz_collection.update({_id : quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id)},
+	// 			{$inc : {  choice[parseInt(data_to_up)].vote : 1 } }, 
+	// 			 { safe : true },
+	// 			 function(err) {
+	// 			     console.log('OKKKKKKKKKKKKKKKK ' + err);
+	// 			 });
+	    
+    });
 };
 
 QuizzProvider.prototype.remove = function(id, callback) {

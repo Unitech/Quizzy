@@ -80,9 +80,9 @@ app.get('/c/:quizz_id', function(req, res) {
 
 
 app.post('/ajx/quiz', function(req, res) {
-    quizzProvider.updateWithId(req.param('quizz_id'), {url_id : req.params('choice_id') }, function(err, quizz) {
+    quizzProvider.updateWithId(req.param('quizz_id'), req.param('choice_id'), function(err, quizz) {
 	
-	res.send({'success':true});
+    	res.send({'success':true});
     });
     //console.log(utils.node.inspect(req.param('quizz_id')));
 });
