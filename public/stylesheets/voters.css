@@ -1,30 +1,30 @@
 
-// Permits to change CSS attributes if mobile browser
-@media all and (orientation: portrait) {  
-    body { 
-	background-color : #fff;
-    }  
-    div { }  
-} 
+/* // Permits to change CSS attributes if mobile browser */
+/* @media all and (orientation: portrait) {   */
+/*     body {  */
+/* 	background-color : #fff; */
+/*     }   */
+/*     div { }   */
+/* }  */
 
-// target small screens (mobile devices or small desktop windows)  
-@media only screen and (max-width: 480px) {  
-  /* CSS goes here */  
-}  
+/* // target small screens (mobile devices or small desktop windows)   */
+/* @media only screen and (max-width: 480px) {   */
+/*   /\* CSS goes here *\/   */
+/* }   */
   
-/* high resolution screens */  
-@media (-webkit-min-device-pixel-ratio: 2),  
-             (min--moz-device-pixel-ratio: 2),  
-             (min-resolution: 300dpi) {  
-  header { background-image: url(header-highres.png); }  
-}  
+/* /\* high resolution screens *\/   */
+/* @media (-webkit-min-device-pixel-ratio: 2),   */
+/*              (min--moz-device-pixel-ratio: 2),   */
+/*              (min-resolution: 300dpi) {   */
+/*   header { background-image: url(header-highres.png); }   */
+/* }   */
   
-/* low resolution screens */  
-@media (-webkit-max-device-pixel-ratio: 1.5),  
-             (max--moz-device-pixel-ratio: 1.5),  
-             (max-resolution: 299dpi) {  
-  header { background-image: url(header-lowres.png); }  
-}  
+/* /\* low resolution screens *\/   */
+/* @media (-webkit-max-device-pixel-ratio: 1.5),   */
+/*              (max--moz-device-pixel-ratio: 1.5),   */
+/*              (max-resolution: 299dpi) {   */
+/*   header { background-image: url(header-lowres.png); }   */
+/* }   */
 
 
 
@@ -33,8 +33,6 @@ html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-
 body { margin: 0; font-size: 13px; line-height: 1.231; }
 
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
-
-
 
 h1 {
     margin-top : 10px;
@@ -47,8 +45,8 @@ h1 {
 }
 
 input[type=button] {
-    background-color : #06D;
-    border : 1px solid #CCC;
+    background-color : #0082dd;
+    //border : 2px solid #CCC;
     color : white;
 
 
@@ -57,15 +55,16 @@ input[type=button] {
     width : 300px;
     height : 60px;
     margin-bottom : 10px;
-    -moz-border-radius: 35px;
-    -webkit-border-radius: 35px;
-    -khtml-border-radius: 35px;
-    border-radius: 35px;
+
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
 }
 
-/* input[type=button]:hover { */
-/*     background-color : #CCC; */
-/* } */
+input[type=button]:hover {
+    background-color : #CCC;
+}
 
 .setVoted {
     background-color : #CCC !important;

@@ -3,16 +3,52 @@
  */
 
 var express = require('express');
-// util = require('util');
 
-var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017);
-
+/**** Includes ****/
 var app = module.exports = express.createServer();
-
+var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017);
 require('./configuration.js')(app);
-
 var utils = require('./utils.js');
 var filters = require('./filters.js');
+
+/**** Global variables ****/
+var clients = [];
+
+function debug_clients(clients) {
+    for (var i = 0; i < clients.length; i++) {
+	console.log('Client present = ' + clients[i].url_id);
+    }
+}
+
+/***** Results IO ******/
+var io = require('socket.io').listen(3001);
+
+io.sockets.on('connection', function (socket) {
+    //console.log(utils.node.inspect(socket.id));
+    socket.on('new', function (data) {
+	var tmp = {'url_id' : data.url_id, 
+		   'socket' : socket};
+	clients.push(tmp);	
+    });
+    socket.on('disconnect', function () {
+	console.log('Client n ' + socket.id + ' disconnected');
+	for (var i = 0; i < clients.length; i++) {
+	    console.log('1 = ' + clients[i].socket.id
+			+ ' 2 = ' + socket.id);
+	    if (clients[i].socket.id == socket.id) {
+		console.log('Before');
+		debug_clients(clients);
+
+		//clients.pop(clients[i]);
+		clients.splice(clients[i], 1);
+		console.log('After');
+		debug_clients(clients);
+		break;
+	    }
+	}
+    });
+});
+
 
 // Routes
 app.get('/', function(req, res){
@@ -20,6 +56,11 @@ app.get('/', function(req, res){
 	title : 'Easy quizzing'
     });
 });
+
+// 404
+// app.get('*', function(req, res) {
+//     res.send('404 Not found');
+// });
 
 app.get('/quizz/delete/:id', function(req, res) {
     quizzProvider.remove(req.params.id, function(err, quizz) {
@@ -47,13 +88,16 @@ app.post('/quizz/new', filters.beforeFilterReformat, function(req, res) {
 	title : req.param('title'),
 	body : req.param('body'),
 	choice : req.param('choice'),
-	url_id : utils.generateId(5)
-	//id_prot : req.param('id_prot')
+	url_id : utils.generateId(5),
+	id_prot : req.param('id_prot')
     }, function(err, quizz) {
 	// Success
 	res.redirect('/a/' + quizz.url_id);
     });
 });
+
+
+/***** Quizz controller ******/
 
 app.get('/a/:quizz_id', function(req, res) {
     quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
@@ -84,10 +128,30 @@ app.get('/c/:quizz_id', function(req, res) {
 
 /***** Public part *****/
 app.post('/ajx/quiz', function(req, res) {
-    quizzProvider.updateWithId(req.param('quizz_id'), req.param('choice_id'), function(err, quizz) {	
-    	res.send({'success':true});
+    var quizz_id = req.param('quizz_id');
+    var choice_id = req.param('choice_id');
+
+    console.log('New vote on quizz ' + quizz_id);
+    quizzProvider.incrementVoteNbById(quizz_id, choice_id, function(err, res) {	
+	if (err == null) {
+	    for (var i = 0; i < clients.length; i++) {
+		if (clients[i].url_id == quizz_id) {
+		    var dt = {
+			'vote_id' : choice_id,
+			'vote_nb' : res.choice[choice_id].vote,
+			'success' : true
+		    };
+		    clients[i].socket.emit('newvote', dt);
+		    res.send({'success':true});
+		}
+	    }
+	}
+	else {
+	    res.send({'success':false});
+	}
     });
 });
+
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -1,6 +1,7 @@
+<input type="hidden" value="<%= quizz._id %>" id="url_id"/>
 <div id="result">
   <div id="min_descr">
-  Result for <%= quizz.title %> Quizzy
+  Result for <%= quizz.title %> <%= quizz._id %> Quizzy
   </div>
   <div id="descr">
     <% choices = quizz.choice; %>
@@ -13,7 +14,7 @@
     </span>
     <span id="ans-vote">
     <div class="big-bullet">
-    <div class="bb-number">
+    <div class="bb-number" id="choice-<%= choices[i].id %>">
 	  <%= choices[i].vote %>
 </div>	  
 	  </div>	  
@@ -27,9 +28,5 @@
   
 </div>
 
-<script src="/javascripts/plugins/jquery.qrcode.min.js"></script>
-<script>
-  $().ready(function() {
-  $('#qrcode').qrcode('<%= quizz.getPublicUrl() %>');
-  });
-</script>
+<script src="/javascripts/socket.io.min.js"></script>
+<script src="/javascripts/results.js"></script>

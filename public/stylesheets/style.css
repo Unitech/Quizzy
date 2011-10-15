@@ -102,10 +102,11 @@ input:-webkit-autofill {
   font-weight: bold;
 }
 #answers {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 #answers #ans {
   position: relative;
+  margin-bottom: 5px;
 }
 #answers #ans #ans-descr {
   position: absolute;
@@ -131,9 +132,14 @@ input:-webkit-autofill {
   border-radius: 25px;
 }
 #answers #ans #ans-vote .big-bullet .bb-number {
-  position: absolute;
-  top: 9px;
-  left: 16px;
+  /* position : absolute; */
+
+  /* top : 9px; */
+
+  /* left : 16px; */
+
+  padding-top: 9px;
+  text-align: center;
   color: white;
   font-size: 16px;
   font-weight: bold;

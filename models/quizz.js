@@ -9,7 +9,7 @@ var url_site = 'http://localhost:3000';
 function Quizz(quizz) {
     if (quizz == undefined) {
 	console.log('Warning quizz undefined');
-	return
+	return;
     }
     quizz.getPublicUrl = function() {
 	return url_site + "/c/" + quizz.url_id;
@@ -69,14 +69,14 @@ QuizzProvider.prototype.findById = function(id, callback) {
     });
 };
 
-QuizzProvider.prototype.updateWithId = function(id, data_to_up, callback) {
+QuizzProvider.prototype.incrementVoteNbById = function(id, data_to_up, callback) {
     this.getCollection(function(error, quizz_collection) {
 	quizz_collection.findOne({_id: quizz_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, res) {
 	    res.choice[parseInt(data_to_up)].vote = res.choice[parseInt(data_to_up)].vote + 1;	    
 
-	    console.log(res);
+	    //console.log(res);
 	    quizz_collection.save(res);
-	    callback(null, null);
+	    callback(null, res);
 	});	    
     });
 };
