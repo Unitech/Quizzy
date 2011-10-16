@@ -5,6 +5,7 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 var url_site = 'http://localhost:3000';
+
 /**** Add methods to model *****/
 function Quizz(quizz) {
     if (quizz == undefined) {
@@ -24,7 +25,10 @@ function Quizz(quizz) {
 
 
 /******* Provider *******/
-QuizzProvider = function(host, port){
+QuizzProvider = function(host, port, l_url_site){
+    if (l_url_site == undefined)
+	throw 'No url defined for Model Quizz';
+    url_site = l_url_site;
     this.db = new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
     this.db.open(function(){});
 };

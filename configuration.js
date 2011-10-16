@@ -6,7 +6,6 @@
 
 var express = require('express');
 
-
 module.exports = function(app) {
     app.configure(function(){
 	app.set('views', __dirname + '/views');
@@ -15,7 +14,7 @@ module.exports = function(app) {
 	app.use(express.logger());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser());
-	app.use(express.session({ secret: 'OASDPOAS' }));
+	//app.use(express.session({ secret: 'OASDPOAS' }));
 	app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));

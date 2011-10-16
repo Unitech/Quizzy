@@ -1,12 +1,11 @@
-var socket = io.connect('http://localhost:3001');
+var socket = io.connect('<%= url_site %>:3001');
 
 // Close socket when leaving the page
 window.onunload = function() {
     socket.disconnect();
 }
 
-$().ready(function() {
-    
+$().ready(function() {    
     // Send the Quizzy's ID
     socket.emit('new', {'url_id' : $('#url_id').val() });
     // Wait for vote belonging to the quizzy

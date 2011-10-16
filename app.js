@@ -6,8 +6,16 @@ var express = require('express');
 
 /**** Includes ****/
 var app = module.exports = express.createServer();
-var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017);
 require('./configuration.js')(app);
+
+var url_site;
+if (app.settings.env == 'production')
+    url_site = 'http://production.io'
+else
+    url_site = 'http://localhost:3000/'
+
+var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017, url_site);
+
 var utils = require('./utils.js');
 var filters = require('./filters.js');
 
@@ -52,15 +60,11 @@ io.sockets.on('connection', function (socket) {
 
 // Routes
 app.get('/', function(req, res){
+    console.log(utils.node.inspect(app));
     res.render('index', {
 	title : 'Easy quizzing'
     });
 });
-
-// 404
-// app.get('*', function(req, res) {
-//     res.send('404 Not found');
-// });
 
 app.get('/quizz/delete/:id', function(req, res) {
     quizzProvider.remove(req.params.id, function(err, quizz) {
@@ -112,6 +116,7 @@ app.get('/r/:quizz_id', function(req, res) {
     quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
 	res.render('quizz_views/result_quizz', {
 	    quizz : quizz,
+	    url_site : url_site,
 	    title : 'View results for ' + quizz.title
 	});
     });
@@ -152,6 +157,11 @@ app.post('/ajx/quiz', function(req, res) {
     });
 });
 
+
+// 404
+// app.get('*', function(req, res) {
+//     res.send('404 Not found');
+// });
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
