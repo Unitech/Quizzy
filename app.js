@@ -4,6 +4,8 @@
 
 var express = require('express');
 
+//console.log();
+
 /**** Includes ****/
 var app = module.exports = express.createServer();
 require('./configuration.js')(app);
@@ -14,8 +16,8 @@ if (app.settings.env == 'production') {
     url_socket = 'http://production.io';
 }
 else {
-    url_site = 'http://localhost:3000';
-    url_socket = 'http://localhost:3001';
+    url_site = process.env.URL_QUIZZY;
+    url_socket = process.env.URL_QUIZZY_SOCKET;
 }
 
 var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017, url_site);
