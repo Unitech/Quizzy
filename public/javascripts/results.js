@@ -1,4 +1,4 @@
-var socket = io.connect('<%= url_site %>:3001');
+
 
 // Close socket when leaving the page
 window.onunload = function() {

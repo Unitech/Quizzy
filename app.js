@@ -8,11 +8,15 @@ var express = require('express');
 var app = module.exports = express.createServer();
 require('./configuration.js')(app);
 
-var url_site;
-if (app.settings.env == 'production')
-    url_site = 'http://production.io'
-else
-    url_site = 'http://localhost:3000/'
+var url_site, url_socket;
+if (app.settings.env == 'production') {
+    url_site = 'http://production.io';
+    url_socket = 'http://production.io';
+}
+else {
+    url_site = 'http://localhost:3000';
+    url_socket = 'http://localhost:3001';
+}
 
 var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017, url_site);
 
@@ -116,7 +120,7 @@ app.get('/r/:quizz_id', function(req, res) {
     quizzProvider.find({url_id : req.params.quizz_id}, function(err, quizz) {
 	res.render('quizz_views/result_quizz', {
 	    quizz : quizz,
-	    url_site : url_site,
+	    url_socket : url_socket,
 	    title : 'View results for ' + quizz.title
 	});
     });
