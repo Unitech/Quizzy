@@ -11,13 +11,14 @@ var app = module.exports = express.createServer();
 require('./configuration.js')(app);
 
 var url_site, url_socket;
+console.log('Quizzy launched in %s', app.settings.env);
 if (app.settings.env == 'production') {
-    url_site = 'http://production.io';
-    url_socket = 'http://production.io';
-}
-else {
     url_site = process.env.URL_QUIZZY;
     url_socket = process.env.URL_QUIZZY_SOCKET;
+}
+else {
+    url_site = 'http://localhost:3000';
+    url_socket = 'http://localhost:3001';
 }
 
 var quizzProvider = new (require('./models/quizz.js').QuizzProvider)('localhost', 27017, url_site);
@@ -38,7 +39,6 @@ function debug_clients(clients) {
 var io = require('socket.io').listen(3001);
 
 io.sockets.on('connection', function (socket) {
-    //console.log(utils.node.inspect(socket.id));
     socket.on('new', function (data) {
 	var tmp = {'url_id' : data.url_id, 
 		   'socket' : socket};
@@ -52,7 +52,7 @@ io.sockets.on('connection', function (socket) {
 	    if (clients[i].socket.id == socket.id) {
 		console.log('Before');
 		debug_clients(clients);
-
+		
 		//clients.pop(clients[i]);
 		clients.splice(clients[i], 1);
 		console.log('After');
@@ -66,7 +66,7 @@ io.sockets.on('connection', function (socket) {
 
 // Routes
 app.get('/', function(req, res){
-    console.log(utils.node.inspect(app));
+    //console.log(utils.node.inspect(app));
     res.render('index', {
 	title : 'Easy quizzing'
     });
@@ -143,23 +143,27 @@ app.post('/ajx/quiz', function(req, res) {
     var choice_id = req.param('choice_id');
 
     console.log('New vote on quizz ' + quizz_id);
-    quizzProvider.incrementVoteNbById(quizz_id, choice_id, function(err, res) {	
+
+    debug_clients(clients);    
+
+    quizzProvider.incrementVoteNbById(quizz_id, choice_id, function(err, quizz) {	
 	if (err == null) {
 	    for (var i = 0; i < clients.length; i++) {
 		if (clients[i].url_id == quizz_id) {
 		    var dt = {
 			'vote_id' : choice_id,
-			'vote_nb' : res.choice[choice_id].vote,
+			'vote_nb' : quizz.choice[choice_id].vote,
 			'success' : true
 		    };
-		    clients[i].socket.emit('newvote', dt);
-		    res.send({'success':true});
+		    clients[i].socket.emit('newvote', dt);		    
 		}
 	    }
 	}
 	else {
+
 	    res.send({'success':false});
 	}
+	res.send({'success':true});
     });
 });
 
@@ -170,4 +174,4 @@ app.post('/ajx/quiz', function(req, res) {
 // });
 
 app.listen(3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -1,4 +1,5 @@
 
+
 function gup(name)
 {
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -12,28 +13,30 @@ function gup(name)
 }
 
 function setVotedAndDisable(votedChoice) {
+    if (debug == true)
+	return ;
     $('#' + votedChoice).addClass("setVoted");
     $('.choice').each(function() {
 	$(this).unbind('click');
     });
 }
 
+var debug = false;
+
 $().ready(function() {
     var cookie_id = 'cookie-' + $('#url_id').val();
 
     if (gup('cookie')) {
+	debug = true;
 	$.cookie(cookie_id, null);
     }
 
     var hasVoted = $.cookie(cookie_id)
 
     if (hasVoted != null) {
+	// has already voted
 	setVotedAndDisable(hasVoted);
     }
-    else {
-	// Already voted
-    }
-
 
     if (isMobile() == true) {
 	var br = '<br />';
@@ -49,7 +52,7 @@ $().ready(function() {
     }
     
     // To replace by Evercookie
-    if (hasVoted == null) {
+    if (hasVoted == null || debug == true) {
 	$('.choice').each(function() {
 	    var self = $(this);
 	    $(this).click(function() {
@@ -62,8 +65,7 @@ $().ready(function() {
 		    },
 		    success : function(data) {
 			if (data.success == true) {
-			    setVotedAndDisable(self.attr('id'));
-			    
+			    setVotedAndDisable(self.attr('id'));			    
 			    $.cookie(cookie_id, self.attr('id'));
 			}
 			else {
